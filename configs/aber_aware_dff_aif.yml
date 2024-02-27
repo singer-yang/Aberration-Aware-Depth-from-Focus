@@ -1,0 +1,37 @@
+DEBUG: True
+EXP_NAME: 'AberAwareDFF-AiF-stack8-480x640-ks11'
+pred_name: 'depth'
+
+train:
+  lens: './lenses/rf50mm/lens.json'
+  psfnet_path: './ckpt/rf50mm/PSFNet480x640_ks11.pkl'
+
+  # lens: 'thinlens'
+  # foc_lens: 50
+  # fnum: 1.8
+
+  dataset: 'Matterport3D'
+  dffnet_pretrained: './ckpt/rf50mm/aifnet_stack8_480x640.pkl'
+
+test:
+  lens: './lenses/rf50mm/lens.json'
+  psfnet_path: './ckpt/rf50mm/PSFNet480x640_ks11.pkl'
+
+  dataset: 'Middlebury2014'
+
+# Input focal stack [B, S, C, H, W]
+bs: 2 # batch size
+n_stack: 8  # focal stack size
+res: !!python/tuple [480, 640]  # input image resolution
+
+ks: 11 # PSF kernel size
+lr: 1e-4  # DFF network learning rate
+epochs: 20  # DFF network training epochs
+
+train_aif_dir: './dataset/Matterport3D/train/aif'
+train_depth_dir: './dataset/Matterport3D/train/depth'
+test_aif_dir: './dataset/Matterport3D/test/aif'
+test_depth_dir: './dataset/Matterport3D/test/depth'
+
+Middlebury2014_val: './dataset/Middlebury2014'  # Use depth for more accurate quantitative score
+Middlebury2021_val: './dataset/Middlebury2021'
