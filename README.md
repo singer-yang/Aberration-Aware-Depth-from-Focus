@@ -2,7 +2,7 @@
 
 Official code for the paper "Aberration-Aware Depth-from-Focus" ([ICCP 2023](https://iccp2023.iccp-conference.org/conference-program/), [TPAMI 2023](https://ieeexplore.ieee.org/abstract/document/10209238))
 
-**TL;DR:** Simulate aberrated focal stack for a real lens. Depth-from-focus model can generalize better with only synthetic training data, because the optical aberrations and defocus are independent of scenes!
+**TL;DR:** Train a network to represent a lens (4D PSFs). Use the network to simulate aberrated focal stacks. Train depth-from-focus models with aberrated focal stacks. Models can generalize better in real world because it learns from aberrations!
 
 [Xinge Yang](https://singer-yang.github.io/), [Qiang Fu](https://fuqiangx.github.io/), [Mohamed Elhoseiny](https://www.mohamed-elhoseiny.com/),  [Wolfgang Heidrich](https://vccimaging.org/People/heidriw/)
 King Abdullah University of Science and Technology, Saudi Arabia
@@ -53,6 +53,9 @@ Depth map predicted by aberration-aware trained model is more accurate.
 ##### Evaluation on real-world data
 
 Depth map predicted by aberration-aware trained model is smoother, with fewer artifacts.
+
+![](figs/experiments.png)
+
 
 ![](figs/eval_lab.png)
 
