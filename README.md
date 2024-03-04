@@ -1,8 +1,8 @@
 # Aberration-Aware-Depth-from-Focus
 
-Official code for the paper "Aberration-Aware Depth-from-Focus" ([ICCP 2023](https://iccp2023.iccp-conference.org/conference-program/), [TPAMI 2023](https://ieeexplore.ieee.org/abstract/document/10209238))
+Official code for the paper "Aberration-Aware Depth-from-Focus" ([ICCP 2023](https://iccp2023.iccp-conference.org/conference-program/), [TPAMI 2023](https://ieeexplore.ieee.org/abstract/document/10209238)).
 
-**TL;DR:** Train a network to represent a lens (4D PSFs). Use the network to simulate aberrated focal stacks. Train depth-from-focus models with aberrated focal stacks. Models can generalize better in real world because it learns from aberrations!
+**TL;DR:** Train a network to represent a lens (4D PSFs). Use the network to simulate aberrated focal stacks. Train depth-from-focus models with aberrated focal stacks. Models can generalize better in real world because it learns under aberrations!
 
 [Xinge Yang](https://singer-yang.github.io/), [Qiang Fu](https://fuqiangx.github.io/), [Mohamed Elhoseiny](https://www.mohamed-elhoseiny.com/),  [Wolfgang Heidrich](https://vccimaging.org/People/heidriw/)
 King Abdullah University of Science and Technology, Saudi Arabia
@@ -41,6 +41,31 @@ python 0_aber_aware_dff_aif.py
 #### Use DFVNet
 python 0_aber_aware_dff_dfv.py
 ```
+
+## Data folder
+
+```bash
+#### Actually you can use any RGB-Depth data pairs, because we render focal stacks by ourselves. ####
+- deeplens
+- dataset
+  - Middlebury2014 # Available at https://vision.middlebury.edu/stereo/data/scenes2014/
+    - scene1
+    - scene2
+    - ...
+  - Matterport3D # Available by requesting through https://niessner.github.io/Matterport/
+    - train
+      - aif
+      - depth
+    - test
+      - aif
+      - depth
+  - FlyingThings3D_FS # Available at https://github.com/albert100121/AiFDepthNet
+    - trian
+      - focal_stack
+    - val
+      - focal_stack
+```
+
 
 ## Results
 
