@@ -36,10 +36,10 @@ python 1_fit_psfnet.py
 ```bash
 #### simulate focal stack with the same aberration and defocus as capture ####
 #### Use AiFNet
-python 0_aber_aware_dff_aif.py
+python 2_aber_aware_dff_aif.py
 
 #### Use DFVNet
-python 0_aber_aware_dff_dfv.py
+python 2_aber_aware_dff_dfv.py
 ```
 
 ## Data folder
@@ -66,7 +66,6 @@ python 0_aber_aware_dff_dfv.py
       - focal_stack
 ```
 
-
 ## Results
 
 ##### Evaluation on simulated data
@@ -80,7 +79,6 @@ Depth map predicted by aberration-aware trained model is more accurate.
 Depth map predicted by aberration-aware trained model is smoother, with fewer artifacts.
 
 ![](figs/experiments.png)
-
 
 ![](figs/eval_lab.png)
 
