@@ -17,7 +17,7 @@ if __name__ == "__main__":
     depth = torch.tensor(depth).unsqueeze(0).unsqueeze(0).float()
 
     # Render an image
-    depth = - depth * 1e5  # unit [mm]
+    depth = - depth * 1e2  # unit [mm]
     focus_dist = torch.tensor([-5000.])  # unit [mm]
 
     # Render an image
