@@ -22,6 +22,33 @@ def read_pfm(file):
         data = np.flipud(data)
         return data
 
+
+def read_and_clean_pfm(file_path):
+
+    with open(file_path, "rb") as file:
+
+        header = file.readline().rstrip()
+        color = True if header == b'PF' else False
+
+
+        dim_match = re.match(r'^(\d+)\s(\d+)\s$', file.readline().decode('ascii'))
+        if not dim_match:
+            raise Exception("PFM文件头格式错误。")
+        width, height = map(int, dim_match.groups())
+
+
+        scale = float(file.readline().rstrip())
+        endian = '<' if scale < 0 else '>'
+
+
+        data = np.fromfile(file, endian + 'f')
+        shape = (height, width, 3) if color else (height, width)
+        data = np.reshape(data, shape)
+        data = np.flipud(data)
+
+        clean_data = np.nan_to_num(data, nan=0.0, posinf=0.0, neginf=0.0)
+
+        return clean_data
 def save_pfm_image(image_data, path):
     """
     Save PFM format image data to a specified path
@@ -36,9 +63,10 @@ def save_pfm_image(image_data, path):
     print(f"Image saved to {path}")
 
 # Path to the PFM image
-image_path = r'D:\chenxireunion\be an engineer\Aberration-Aware-Depth-from-Focus-main\Aberration-Aware-Depth-from-Focus-main1\Aberration-Aware-Depth-from-Focus-main\dataset\Middlebury2014\Adirondack-perfect\disp0.pfm'
+image_path = r'.\dataset\Middlebury2014\Adirondack-perfect\disp0.pfm'
 # Read PFM image
 image_data = read_pfm(image_path)
+print(image_data)
 
 # Exclude infinite values
 finite_data = image_data[np.isfinite(image_data)]
@@ -51,7 +79,7 @@ min_value = np.min(image_data)
 print('Minimum depth value:', min_value)
 
 # Save path
-save_path = r'D:\chenxireunion\be an engineer\Aberration-Aware-Depth-from-Focus-main1\Aberration-Aware-Depth-from-Focus-main\results\output_image.png'
+save_path = r'.\results\output_image.png'
 # Save PFM image
 save_pfm_image(image_data, save_path)
 
