@@ -11,18 +11,17 @@ if __name__ == "__main__":
     psfnet.analysis()
 
     # Read image with using disp.pfm
-    img = cv.resize(cv.cvtColor(cv.imread('./dataset/Middlebury2014/Adirondack-perfect/im0.png'), cv.COLOR_BGR2RGB),
-                    (640, 480))
+    img = cv.resize(cv.cvtColor(cv.imread('./datasets/Middlebury2014/Adirondack-perfect/im0.png'), cv.COLOR_BGR2RGB), (640, 480))
     img = torch.tensor(img).permute(2, 0, 1).unsqueeze(0).float() / 255
-    disp = read_and_clean_pfm(r'./dataset/Middlebury2014/Adirondack-perfect/disp0.pfm')
+    disp = read_and_clean_pfm('./datasets/Middlebury2014/Adirondack-perfect/disp0.pfm')
 
     disp = cv.resize(disp, (640, 480))
     disp = torch.tensor(disp).unsqueeze(0).unsqueeze(0).float()
     print("disp in pixel:",disp)
 
-    # important:To convert from the floating-point disparity value d [pixels] in the .pfm file to depth Z [mm] the
+    # Important: to convert from the floating-point disparity value d [pixels] in the .pfm file to depth Z [mm] the
     # following equation can be used: Z = f * baseline / (d + doffs)
-    # these datas can be found in dataset/Middlebury2014/Adirondack-perfect/calib.txt
+    # these datas can be found in datasets/Middlebury2014/Adirondack-perfect/calib.txt
 
     base_line = 176.252
     doffs = 209.059

@@ -11,9 +11,9 @@ if __name__ == "__main__":
     psfnet.analysis()
 
     # Read image
-    img = cv.resize(cv.cvtColor(cv.imread('./dataset/Middlebury2014/Adirondack-perfect/im0.png'), cv.COLOR_BGR2RGB), (640, 480))
+    img = cv.resize(cv.cvtColor(cv.imread('./datasets/Middlebury2014/Adirondack-perfect/im0.png'), cv.COLOR_BGR2RGB), (640, 480))
     img = torch.tensor(img).permute(2, 0, 1).unsqueeze(0).float() / 255
-    depth = cv.resize(cv.imread(f'./dataset/Middlebury2014/Adirondack-perfect/depth.png', -1) / 1000., (640, 480))
+    depth = cv.resize(cv.imread(f'./datasets/Middlebury2014/Adirondack-perfect/depth.png', -1) / 1000., (640, 480))
     depth = torch.tensor(depth).unsqueeze(0).unsqueeze(0).float()
     
     # Render an image
