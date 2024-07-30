@@ -1159,7 +1159,7 @@ class Lensgroup(DeepObj):
         """
         # Trace green light
         o = self.surfaces[0].surface_sample(GEO_SPP)
-        o *= 0.2  # shrink sample region
+        #o *= 0.2  # shrink sample region
         d = o - torch.tensor([0, 0, depth], dtype=torch.float32).to(self.device)
         ray = Ray(o, d, wvln=DEFAULT_WAVE, device=self.device)
         ray, _, _ = self.trace(ray)
