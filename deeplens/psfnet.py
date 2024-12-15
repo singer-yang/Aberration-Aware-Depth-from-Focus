@@ -264,7 +264,8 @@ class PSFNet(Lensgroup):
         test_foc_z = self.depth2z(test_foc_dists)
         test_z = self.depth2z(test_dists)
 
-        # Gaussian PSF parameters
+        # Thin lens and Gaussian PSF parameters
+        thinlens = ThinLens(self.foclen, self.fnum, ks, self.sensor_size, self.sensor_res)
         x_gaussi, y_gaussi = torch.meshgrid(
             torch.linspace(-ks/2+1/2, ks/2-1/2, ks),
             torch.linspace(-ks/2+1/2, ks/2-1/2, ks),
@@ -293,9 +294,7 @@ class PSFNet(Lensgroup):
 
                 # Thin lens Gaussian model
                 # "Focus on defocus: bridging the synthetic to real domain gap for depth estimation" Eq.(1)
-                coc = torch.abs(depth - foc_dist) * self.foclen**2 / (depth * self.fnum *(foc_dist - self.foclen))
-                coc_pixel = torch.clamp(coc / ps, min=0.1)
-                coc_pixel_radius = coc_pixel / 2
+                coc_pixel_radius = thinlens.coc(depth, foc_dist)/2
                 psf_thin = torch.exp(- (x_gaussi**2 + y_gaussi**2) / (2 * coc_pixel_radius**2)) # We ignore constant term because PSF will be normalized later
                 psf_mask = (x_gaussi**2 + y_gaussi**2 < coc_pixel_radius**2)
                 psf_thin = psf_thin * psf_mask # Un-clipped Gaussian PSF
